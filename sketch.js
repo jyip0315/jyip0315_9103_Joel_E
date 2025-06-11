@@ -1,8 +1,116 @@
+let rot = 0
+let currentExpression = 'level 1';
+let buttons = [];
+
+function createButtons() {
+  buttons = [];
+
+  let y = height - 55;
+  let spacing = 150;
+
+  //Define Buttons
+  buttons.push(new Button("Level 1", width / 2 - spacing, y, () => currentExpression = 'level 1'));
+  buttons.push(new Button("Level 2", width / 2 - spacing / 3, y, () => currentExpression = 'level 2'));
+  buttons.push(new Button("Level 3", width / 2 + spacing / 3, y, () => currentExpression = 'level 3'));
+  buttons.push(new Button("Level 4", width / 2 + spacing, y, () => currentExpression = 'level 4'));
+}
+
 function setup() {
-  createCanvas(600, 800);
-  noFill();
-  stroke('#231f20');
-  strokeWeight(1.5);
+createCanvas(windowWidth, windowHeight);
+angleMode(DEGREES);
+rectMode(CENTER);
+background(220);
+drawWave()
+drawLayerBottom();
+drawSeaSunlight();
+createButtons(); // Setup initial buttons based on window size
+textAlign(CENTER, CENTER);
+}
+
+function draw() {
+drawLandCircles()
+drawScreamCharacter(currentExpression);
+drawButtons();
+}
+
+
+function drawWave() {
+  let scaleX = windowWidth / 1811;
+  let scaleY = windowHeight / 1280;
+
+  fill(21, 28, 46);
+  beginShape();
+  vertex(1351.35 * scaleX, 388.26 * scaleY);
+  bezierVertex((1351.35 - 286.45) * scaleX, (388.26 + 127.97) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY);
+  bezierVertex(320.13 * scaleX, 251 * scaleY, 0 * scaleX, 625.71 * scaleY, 0 * scaleX, 625.71 * scaleY);
+  vertex(0 * scaleX, 1280 * scaleY);
+  vertex(1811 * scaleX, 1280 * scaleY);
+  vertex(1811 * scaleX, 429.84 * scaleY);
+  bezierVertex((1811 - 114.81) * scaleX, (429.84 - 206.71) * scaleY, (1811 - 459.65) * scaleX, (429.84 - 41.58) * scaleY, (1811 - 459.65) * scaleX, (429.84 - 41.58) * scaleY);
+  endShape(CLOSE);
+}
+
+function drawLayerBottom() {
+  stroke(220, 50);
+  let sX = windowWidth / 1811;
+  let sY = windowHeight / 1280;
+
+  noFill(); ellipse(556.43 * sX, 518.48 * sY, 363.26 * 2 * sX, 110.27 * 2 * sY);
+  noFill(); ellipse(601.58 * sX, 533.79 * sY, 408.41 * 2 * sX, 113.2 * 2 * sY);
+  noFill(); ellipse(625.51 * sX, 552.45 * sY, 398.67 * 2 * sX, 100.98 * 2 * sY);
+  noFill(); ellipse(1523.89 * sX, 503.61 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1446.04 * sX, 529.41 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1348.32 * sX, 566.53 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1241.81 * sX, 602.29 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1230.88 * sX, 664.21 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
+}
+
+function drawSeaSunlight() {
+  stroke(220, 50);
+  let sX = windowWidth / 1811;
+  let sY = windowHeight / 1280;
+
+  noFill(); ellipse(1228.69 * sX, 1062.82 * sY, 578.67 * 2 * sX, 210.8 * 2 * sY);
+  noFill(); ellipse(1185.14 * sX, 944.66 * sY, 624.77 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1144.41 * sX, 867.08 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1080.95 * sX, 776.19 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1054.57 * sX, 716.27 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1024.18 * sX, 682.21 * sY, 657.53 * 2 * sX, 205.94 * 2 * sY);
+  noFill(); ellipse(1018.69 * sX, 647.26 * sY, 693.42 * 2 * sX, 153.96 * 2 * sY);
+  noFill(); ellipse(829.66 * sX, 618.21 * sY, 515.51 * 2 * sX, 129.55 * 2 * sY);
+  noFill(); ellipse(751.17 * sX, 609.82 * sY, 470.9 * 2 * sX, 111.52 * 2 * sY);
+  noFill(); ellipse(724.94 * sX, 587.76 * sY, 415.84 * 2 * sX, 85.94 * 2 * sY);
+  noFill(); ellipse(725.62 * sX, 568.34 * sY, 366.39 * 2 * sX, 49.86 * 2 * sY);
+  noFill(); ellipse(722.04 * sX, 548.85 * sY, 279.39 * 2 * sX, 21.48 * 2 * sY);
+  noFill(); ellipse(734.9 * sX, 538.38 * sY, 214.65 * 2 * sX, 3.27 * 2 * sY);
+}
+
+
+function drawLandCircles(){
+translate(mouseX, mouseY)
+// A circle changes color from hues of blue to orange as the mouse moves from left to right.
+//  let r = map(mouseX, 0, width, 0, 255);
+//  let b = map(mouseX, 255, width, 255, 0);
+  let r = map(mouseX, 0, width, 0, 255);
+  let g = map(mouseX, 0, width, 0, 255);
+  let b = map(mouseX, 0, width, 255, 0);
+//  fill(r, 50, b,50);
+fill(r, g , b, 50);
+noStroke();
+  
+
+for (let i = 0; i < 5; i++) {
+    let size = map(i, 0, 5, 50, 10)
+    translate(size, 200)
+    rotate(frameCount)
+    circle(200, 200, size)
+}
+}
+
+function drawScreamCharacter(expression) {
+  push();
+  translate(width / 3, height / 3);
+  scale(0.8); // Scale down the character for better visibility
 
   //Body
   push();
@@ -144,67 +252,66 @@ function setup() {
   endShape();
   pop();
 
-  //Mouth XL  
-  push();
-  fill(169,146,109)
+  //Interactive Mouth 
+  fill(169, 146, 109)
   stroke(0)
   strokeWeight(6)
-  beginShape();
-  vertex(364.399, 332.493);
-  bezierVertex(368.739, 324.013, 375.142, 301.543, 376.357, 292.13);
-  bezierVertex(390.439, 182.973, 264.752, 226.11399999999998, 289.869, 373.671);
-  bezierVertex(292.281, 387.84, 271.93, 437.821, 306.56100000000004, 418.423);
-  bezierVertex(317.439, 412.33, 324.06100000000004, 407.319, 335.264, 384.368);
-  bezierVertex(342.704, 369.126, 342.788, 367.185, 346.478, 362.086);
-  bezierVertex(354.184, 351.43600000000004, 360.157, 340.78200000000004, 364.399, 332.493);
-  endShape();
-  pop();
-
-  /*
-  //Mouth L
-  push();
-  fill(169,146,109)
-  stroke(0)
-  strokeWeight(6)
-  beginShape();
-  vertex(365.897, 319.784);
-  bezierVertex(398.451, 193.85899999999998, 270.75, 234.32999999999998, 294.957, 375.506);
-  bezierVertex(296.553, 383.91999999999996, 280.5, 419.84499999999997, 312.331, 405.203);
-  bezierVertex(324.348, 398.306, 332.706, 391.542, 335.403, 378.296);
-  bezierVertex(336.779, 372.137, 341.69100000000003, 362.287, 345.204, 357.828);
-  bezierVertex(360.871, 337.94399999999996, 362.85900000000004, 326.55999999999995, 365.897, 319.784);
-  endShape();
-  pop();
-
-  //Mouth M
-  push();
-  fill(169,146,109)
-  stroke(0)
-  strokeWeight(6)
-  beginShape();
-  vertex(364.611, 308.765);
-  bezierVertex(394.705, 208.14, 276.652, 240.48, 299.031, 353.292);
-  bezierVertex(300.50600000000003, 360.01599999999996, 285.666, 388.72299999999996, 315.092, 377.022);
-  bezierVertex(326.20099999999996, 371.51099999999997, 333.92699999999996, 366.106, 336.421, 355.521);
-  bezierVertex(337.693, 350.599, 342.234, 342.72900000000004, 345.48199999999997, 339.166);
-  bezierVertex(359.965, 323.277, 361.803, 314.181, 364.61199999999997, 308.766);
-  endShape();
-  pop();
-
-  //Mouth S
-  push();
-  fill(169,146,109)
-  stroke(0)
-  strokeWeight(6)
-  beginShape();
-  vertex(354.706, 297.443);
-  bezierVertex(375.408, 226.783, 294.19800000000004, 249.492, 309.59200000000004, 328.71);
-  bezierVertex(310.607, 333.431, 300.398, 353.59, 320.641, 345.37399999999997);
-  bezierVertex(334.492, 340.65, 334.17600000000004, 328.33599999999996, 341.545, 318.789);
-  bezierVertex(351.509, 307.632, 352.774, 301.245, 354.706, 297.443);
-  endShape();
-  pop();
-*/
+  if (expression === 'level 1') {
+    //Mouth S
+    fill(169, 146, 109)
+    stroke(0)
+    strokeWeight(6)
+    beginShape();
+    vertex(354.706, 297.443);
+    bezierVertex(375.408, 226.783, 294.19800000000004, 249.492, 309.59200000000004, 328.71);
+    bezierVertex(310.607, 333.431, 300.398, 353.59, 320.641, 345.37399999999997);
+    bezierVertex(334.492, 340.65, 334.17600000000004, 328.33599999999996, 341.545, 318.789);
+    bezierVertex(351.509, 307.632, 352.774, 301.245, 354.706, 297.443);
+    endShape();
+  }
+  else if (expression === 'level 2') {
+    //Mouth M
+    fill(169, 146, 109)
+    stroke(0)
+    strokeWeight(6)
+    beginShape();
+    vertex(364.611, 308.765);
+    bezierVertex(394.705, 208.14, 276.652, 240.48, 299.031, 353.292);
+    bezierVertex(300.50600000000003, 360.01599999999996, 285.666, 388.72299999999996, 315.092, 377.022);
+    bezierVertex(326.20099999999996, 371.51099999999997, 333.92699999999996, 366.106, 336.421, 355.521);
+    bezierVertex(337.693, 350.599, 342.234, 342.72900000000004, 345.48199999999997, 339.166);
+    bezierVertex(359.965, 323.277, 361.803, 314.181, 364.61199999999997, 308.766);
+    endShape();
+  }
+  else if (expression === 'level 3') {
+    //Mouth L
+    fill(169, 146, 109)
+    stroke(0)
+    strokeWeight(6)
+    beginShape();
+    vertex(365.897, 319.784);
+    bezierVertex(398.451, 193.85899999999998, 270.75, 234.32999999999998, 294.957, 375.506);
+    bezierVertex(296.553, 383.91999999999996, 280.5, 419.84499999999997, 312.331, 405.203);
+    bezierVertex(324.348, 398.306, 332.706, 391.542, 335.403, 378.296);
+    bezierVertex(336.779, 372.137, 341.69100000000003, 362.287, 345.204, 357.828);
+    bezierVertex(360.871, 337.94399999999996, 362.85900000000004, 326.55999999999995, 365.897, 319.784);
+    endShape();
+  }
+  else if (expression === 'level 4') {
+    //Mouth XL
+    fill(169, 146, 109)
+    stroke(0)
+    strokeWeight(6)
+    beginShape();
+    vertex(364.399, 332.493);
+    bezierVertex(368.739, 324.013, 375.142, 301.543, 376.357, 292.13);
+    bezierVertex(390.439, 182.973, 264.752, 226.11399999999998, 289.869, 373.671);
+    bezierVertex(292.281, 387.84, 271.93, 437.821, 306.56100000000004, 418.423);
+    bezierVertex(317.439, 412.33, 324.06100000000004, 407.319, 335.264, 384.368);
+    bezierVertex(342.704, 369.126, 342.788, 367.185, 346.478, 362.086);
+    bezierVertex(354.184, 351.43600000000004, 360.157, 340.78200000000004, 364.399, 332.493);
+    endShape();
+  }
 
   //Right Eye
   push();
@@ -328,4 +435,57 @@ function setup() {
   endShape();
   pop();
 
+  pop(); // End of character drawing
+}
+
+// Button class
+class Button {
+  constructor(label, x, y, action) {
+    this.label = label;
+    this.x = x;
+    this.y = y;
+    this.w = 80;
+    this.h = 30;
+    this.action = action;
+  }
+  isHovered() {
+    return mouseX > this.x && mouseX < this.x + this.w &&
+      mouseY > this.y && mouseY < this.y + this.h;
+  }
+
+  show() {
+    if (this.isHovered()) {
+      fill(209, 99, 0); //Hover Color
+    } else {
+      fill(248, 208, 19); //Default Color
+    }
+    noStroke();
+    rect(this.x, this.y, this.w, this.h, 5);
+    textSize(17);
+    fill(0);
+    text(this.label, this.x + this.w / 2, this.y + this.h / 2);
+  }
+
+  clicked(mx, my) {
+    return mx > this.x && mx < this.x + this.w && my > this.y && my < this.y + this.h;
+  }
+}
+
+function drawButtons() {
+  for (let b of buttons) {
+    b.show();
+  }
+}
+
+function mousePressed() {
+  for (let b of buttons) {
+    if (b.clicked(mouseX, mouseY)) {
+      b.action();
+    }
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  createButtons(); // Recalculate button positions
 }
