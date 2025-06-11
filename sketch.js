@@ -37,6 +37,7 @@ function draw() {
 
   // Draw buttons
   drawButtons();
+  drawRotatingCircles();
 }
 
 // Level 1
@@ -116,6 +117,27 @@ function drawLandCircles() {
   fill(37, 56, 52); circle(1964 * sX, (790.71 + yOffset) * sY, 340.32 * 2 * sX);
   fill(143, 109, 63); circle(1984.93 * sX, (793.4 + yOffset) * sY, 319.39 * 2 * sX);
   fill(39, 69, 59); circle(2009.53 * sX, (763.96 + yOffset) * sY, 308.54 * 2 * sX);
+}
+
+function drawRotatingCircles(){
+translate(mouseX, mouseY)
+// A circle changes color from hues of blue to orange as the mouse moves from left to right.
+//  let r = map(mouseX, 0, width, 0, 255);
+//  let b = map(mouseX, 255, width, 255, 0);
+  let r = map(mouseX, 0, width, 0, 255);
+  let g = map(mouseX, 0, width, 0, 255);
+  let b = map(mouseX, 0, width, 255, 0);
+//  fill(r, 50, b,50);
+fill(r, g , b, 50);
+noStroke();
+  
+
+for (let i = 0; i < 5; i++) {
+    let size = map(i, 0, 5, 50, 10)
+    translate(size, 200)
+    rotate(radians(frameCount))
+    circle(200, 200, size)
+}
 }
 
 function drawRightCircles() {
