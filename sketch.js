@@ -1,52 +1,43 @@
+// Declare variables
 let buttons = [];
 let keyPressStartTimes = {}; // Store press time for each key
-let currentExpression = 'a';
+let currentExpression = 'a'; // Default character expression
+
+function setup() { // elements behind the rotating circles need to be put here.
+  createCanvas(windowWidth, windowHeight);
+  background(21, 28, 46);  // Navy blue background
+  drawWave()  // wave element
+  drawLayerBottom(); //circles on the wave element
+  drawSeaSunlight(); //circle on the wave element
+  createButtons(); // Setup initial buttons based on window size
+}
+
+function draw() {
+  drawScreamCharacter(currentExpression);
+  drawButtons(); 
+  drawLandCircles() // rotating circles at the bottom as the rotation affects the other elements.
+}
 
 function createButtons() {
   buttons = [];
+  textAlign(CENTER, CENTER)
 
-  let y = height - 55;
-  let spacing = 22;
+  let y = height - 55; // Button position
+  let spacing = 30; // Button spacing
 
-  //Define Buttons
+  // Define Buttons
   buttons.push(new Button("A", width / 2 - spacing * 3, y, () => currentExpression = 'a'));
   buttons.push(new Button("S", width / 2 - spacing, y, () => currentExpression = 's'));
   buttons.push(new Button("D", width / 2 + spacing, y, () => currentExpression = 'd'));
   buttons.push(new Button("F", width / 2 + spacing * 3, y, () => currentExpression = 'f'));
 }
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  textAlign(CENTER, CENTER);
-  createButtons(); // Setup initial buttons based on window size
-}
-
-function draw() {
-  background(220);
-
-  // Draw Background Elements
-  drawWave();
-  drawLayerBottom();
-  drawSeaSunlight();
-  drawBubbleland();
-  drawLandCircles();
-  drawRightCircles();
-
-  // Draw character
-  drawScreamCharacter(currentExpression);
-
-  // Draw buttons
-  drawButtons();
-  drawRotatingCircles();
-}
-
-// Level 1
 function drawWave() {
-  noStroke();
   let scaleX = windowWidth / 1811;
   let scaleY = windowHeight / 1280;
 
   fill(21, 28, 46);
+  stroke(220);
   beginShape();
   vertex(1351.35 * scaleX, 388.26 * scaleY);
   bezierVertex((1351.35 - 286.45) * scaleX, (388.26 + 127.97) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY);
@@ -59,109 +50,68 @@ function drawWave() {
 }
 
 function drawLayerBottom() {
-  noStroke();
+  stroke(220, 50);
   let sX = windowWidth / 1811;
   let sY = windowHeight / 1280;
 
-  fill(119, 165, 199); ellipse(556.43 * sX, 518.48 * sY, 363.26 * 2 * sX, 110.27 * 2 * sY);
-  fill(100, 142, 184); ellipse(601.58 * sX, 533.79 * sY, 408.41 * 2 * sX, 113.2 * 2 * sY);
-  fill(54, 101, 129); ellipse(625.51 * sX, 552.45 * sY, 398.67 * 2 * sX, 100.98 * 2 * sY);
-  fill(23, 50, 79); ellipse(1523.89 * sX, 503.61 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
-  fill(125, 155, 181); ellipse(1446.04 * sX, 529.41 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
-  fill(89, 138, 170); ellipse(1348.32 * sX, 566.53 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
-  fill(13, 52, 109); ellipse(1241.81 * sX, 602.29 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
-  fill(61, 103, 125); ellipse(1230.88 * sX, 664.21 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(556.43 * sX, 518.48 * sY, 363.26 * 2 * sX, 110.27 * 2 * sY);
+  noFill(); ellipse(601.58 * sX, 533.79 * sY, 408.41 * 2 * sX, 113.2 * 2 * sY);
+  noFill(); ellipse(625.51 * sX, 552.45 * sY, 398.67 * 2 * sX, 100.98 * 2 * sY);
+  noFill(); ellipse(1523.89 * sX, 503.61 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1446.04 * sX, 529.41 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1348.32 * sX, 566.53 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1241.81 * sX, 602.29 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
+  noFill(); ellipse(1230.88 * sX, 664.21 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
 }
 
 function drawSeaSunlight() {
-  noStroke();
+  stroke(220, 80);
   let sX = windowWidth / 1811;
   let sY = windowHeight / 1280;
 
-  fill(25, 54, 70); ellipse(1228.69 * sX, 1062.82 * sY, 578.67 * 2 * sX, 210.8 * 2 * sY);
-  fill(15, 22, 40); ellipse(1185.14 * sX, 944.66 * sY, 624.77 * 2 * sX, 228.39 * 2 * sY);
-  fill(26, 73, 101); ellipse(1144.41 * sX, 867.08 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
-  fill(33, 43, 55); ellipse(1080.95 * sX, 776.19 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
-  fill(61, 103, 125); ellipse(1054.57 * sX, 716.27 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
-  fill(21, 28, 46); ellipse(1024.18 * sX, 682.21 * sY, 657.53 * 2 * sX, 205.94 * 2 * sY);
-  fill(25, 54, 70); ellipse(1018.69 * sX, 647.26 * sY, 693.42 * 2 * sX, 153.96 * 2 * sY);
-  fill(89, 138, 170); ellipse(829.66 * sX, 618.21 * sY, 515.51 * 2 * sX, 129.55 * 2 * sY);
-  fill(26, 35, 50); ellipse(751.17 * sX, 609.82 * sY, 470.9 * 2 * sX, 111.52 * 2 * sY);
-  fill(225, 190, 28); ellipse(724.94 * sX, 587.76 * sY, 415.84 * 2 * sX, 85.94 * 2 * sY);
-  fill(195, 83, 20); ellipse(725.62 * sX, 568.34 * sY, 366.39 * 2 * sX, 49.86 * 2 * sY);
-  fill(248, 200, 16); ellipse(722.04 * sX, 548.85 * sY, 279.39 * 2 * sX, 21.48 * 2 * sY);
-  fill(236, 224, 166); ellipse(734.9 * sX, 538.38 * sY, 214.65 * 2 * sX, 3.27 * 2 * sY);
+  noFill(); ellipse(1228.69 * sX, 1062.82 * sY, 578.67 * 2 * sX, 210.8 * 2 * sY);
+  noFill(); ellipse(1185.14 * sX, 944.66 * sY, 624.77 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1144.41 * sX, 867.08 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1080.95 * sX, 776.19 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1054.57 * sX, 716.27 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  noFill(); ellipse(1024.18 * sX, 682.21 * sY, 657.53 * 2 * sX, 205.94 * 2 * sY);
+  noFill(); ellipse(1018.69 * sX, 647.26 * sY, 693.42 * 2 * sX, 153.96 * 2 * sY);
+  noFill(); ellipse(829.66 * sX, 618.21 * sY, 515.51 * 2 * sX, 129.55 * 2 * sY);
+  noFill(); ellipse(751.17 * sX, 609.82 * sY, 470.9 * 2 * sX, 111.52 * 2 * sY);
+  noFill(); ellipse(724.94 * sX, 587.76 * sY, 415.84 * 2 * sX, 85.94 * 2 * sY);
+  noFill(); ellipse(725.62 * sX, 568.34 * sY, 366.39 * 2 * sX, 49.86 * 2 * sY);
+  noFill(); ellipse(722.04 * sX, 548.85 * sY, 279.39 * 2 * sX, 21.48 * 2 * sY);
+  noFill(); ellipse(734.9 * sX, 538.38 * sY, 214.65 * 2 * sX, 3.27 * 2 * sY);
 }
 
-function drawBubbleland() {
-  noStroke();
-  let sX = windowWidth / 1811;
-  let sY = windowHeight / 1280;
-
-  fill(148, 129, 53); circle(1775 * sX, 721 * sY, 90 * sX);
-  fill(39, 69, 59); circle(1775 * sX, 715 * sY, 50 * sX);
-}
 
 function drawLandCircles() {
+  translate(mouseX, mouseY)
+  // A circle changes color from hues of blue to yellow as the mouse moves from left to right.
+  let r = map(mouseX, 0, width, 0, 255); // Red increases as mouse moves right
+  let g = map(mouseX, 0, width, 0, 255); // Green increases the same way
+  let b = map(mouseX, 0, width, 255, 0); // Blue decreases as mouse moves right
+
+  fill(r, g, b, 50);
   noStroke();
-  let sX = windowWidth / 1811;
-  let sY = windowHeight / 1280;
-  let yOffset = 300;
 
-  fill(105, 133, 95); circle(1610.05 * sX, (769.67 + yOffset) * sY, 399.48 * 2 * sX);
-  fill(183, 169, 130); circle(1613.58 * sX, (782.01 + yOffset) * sY, 339.22 * 2 * sX);
-  fill(102, 125, 119); circle(1640.33 * sX, (799.11 + yOffset) * sY, 323.67 * 2 * sX);
-  fill(205, 185, 148); circle(1700.99 * sX, (858.13 + yOffset) * sY, 355.6 * 2 * sX);
-  fill(193, 165, 58); circle(1821.48 * sX, (864.71 + yOffset) * sY, 355.6 * 2 * sX);
-  fill(218, 179, 39); circle(1878.53 * sX, (849.43 + yOffset) * sY, 340.32 * 2 * sX);
-  fill(37, 56, 52); circle(1964 * sX, (790.71 + yOffset) * sY, 340.32 * 2 * sX);
-  fill(143, 109, 63); circle(1984.93 * sX, (793.4 + yOffset) * sY, 319.39 * 2 * sX);
-  fill(39, 69, 59); circle(2009.53 * sX, (763.96 + yOffset) * sY, 308.54 * 2 * sX);
-}
 
-function drawRotatingCircles(){
-translate(mouseX, mouseY)
-// A circle changes color from hues of blue to orange as the mouse moves from left to right.
-//  let r = map(mouseX, 0, width, 0, 255);
-//  let b = map(mouseX, 255, width, 255, 0);
-  let r = map(mouseX, 0, width, 0, 255);
-  let g = map(mouseX, 0, width, 0, 255);
-  let b = map(mouseX, 0, width, 255, 0);
-//  fill(r, 50, b,50);
-fill(r, g , b, 50);
-noStroke();
-  
-
-for (let i = 0; i < 5; i++) {
-    let size = map(i, 0, 5, 50, 10)
-    translate(size, 200)
-    rotate(radians(frameCount))
+  for (let i = 0; i < 5; i++) {
+    let size = map(i, 0, 5, 50, 10) // size of the rotating circles
+    translate(size, 200) // size of spiral
+    rotate(radians(frameCount)) 
     circle(200, 200, size)
-}
-}
-
-function drawRightCircles() {
-  noStroke();
-  let sX = windowWidth / 1811;
-  let sY = windowHeight / 1280;
-
-  fill(74, 100, 113); circle(1605.94 * sX, 510.69 * sY, 192.9 * 2 * sX);
-  fill(34, 53, 109); circle(1551.19 * sX, 510.52 * sY, 168.45 * 2 * sX);
-  fill(98, 125, 116); circle(1529.84 * sX, 518.35 * sY, 151.66 * 2 * sX);
-  fill(40, 61, 116); circle(1504.31 * sX, 529.92 * sY, 154.27 * 2 * sX);
-  fill(106, 134, 156); circle(1491 * sX, 536.01 * sY, 140.96 * 2 * sX);
-  fill(175, 150, 119); circle(1450.5 * sX, 542.76 * sY, 94.6 * 2 * sX);
-  fill(175, 115, 115); circle(1425.62 * sX, 555.33 * sY, 82.03 * 2 * sX);
-  fill(86, 91, 111); circle(1399.86 * sX, 568.86 * sY, 74.85 * 2 * sX);
+  }
 }
 
-function drawScreamCharacter(expression) {
+function drawScreamCharacter(expression) { // Start of character drawing
   push();
-  translate(width / 3, height / 3);
-  scale(0.8); // Scale down the character for better visibility
+  translate(width / 3, height / 3); //shrink character to fit screen
+  scale(0.8); // Scale down the character for better visibility 
+  let q = mousePressed ? 3 : 0; // Jitter amount (quiver strength)
 
   //Body
-  push();
+  push(); // Save current drawing style and transform state, keeps shape in place
   beginShape();
   fill('#4a4b4c');
   // Starting point
@@ -177,10 +127,10 @@ function drawScreamCharacter(expression) {
   bezierVertex(440.094, 305.459, 396.782, 306.213, 396.782, 306.213);
   vertex(219.56, 283.215);
   endShape(CLOSE);
-  pop();
+  pop(); // Restore the previous drawing state
 
   //Left Arm
-  push();
+  push(); 
   fill('#231f20');
   stroke('#231f20');
   strokeWeight(6);
@@ -305,7 +255,7 @@ function drawScreamCharacter(expression) {
   fill(169, 146, 109)
   stroke(0)
   strokeWeight(6)
-  if (expression === 'a') {
+  if (expression === 'a') { // 'a' button clicked
     //Mouth S
     fill(169, 146, 109)
     stroke(0)
@@ -318,7 +268,7 @@ function drawScreamCharacter(expression) {
     bezierVertex(351.509, 307.632, 352.774, 301.245, 354.706, 297.443);
     endShape();
   }
-  else if (expression === 's') {
+  else if (expression === 's') { //'s' button clicked
     //Mouth M
     fill(169, 146, 109)
     stroke(0)
@@ -332,7 +282,7 @@ function drawScreamCharacter(expression) {
     bezierVertex(359.965, 323.277, 361.803, 314.181, 364.61199999999997, 308.766);
     endShape();
   }
-  else if (expression === 'd') {
+  else if (expression === 'd') { //'d' button clicked
     //Mouth L
     fill(169, 146, 109)
     stroke(0)
@@ -346,19 +296,40 @@ function drawScreamCharacter(expression) {
     bezierVertex(360.871, 337.94399999999996, 362.85900000000004, 326.55999999999995, 365.897, 319.784);
     endShape();
   }
-  else if (expression === 'f') {
-    //Mouth XL
-    fill(169, 146, 109)
-    stroke(0)
-    strokeWeight(6)
+  else if (expression === 'f') { //'f' button clicked
+    //Mouth XL — with quiver on click
     beginShape();
-    vertex(364.399, 332.493);
-    bezierVertex(368.739, 324.013, 375.142, 301.543, 376.357, 292.13);
-    bezierVertex(390.439, 182.973, 264.752, 226.11399999999998, 289.869, 373.671);
-    bezierVertex(292.281, 387.84, 271.93, 437.821, 306.56100000000004, 418.423);
-    bezierVertex(317.439, 412.33, 324.06100000000004, 407.319, 335.264, 384.368);
-    bezierVertex(342.704, 369.126, 342.788, 367.185, 346.478, 362.086);
-    bezierVertex(354.184, 351.43600000000004, 360.157, 340.78200000000004, 364.399, 332.493);
+    vertex(364.399 + random(-q, q), 332.493 + random(-q, q));
+    bezierVertex(
+      368.739 + random(-q, q), 324.013 + random(-q, q),
+      375.142 + random(-q, q), 301.543 + random(-q, q),
+      376.357 + random(-q, q), 292.13 + random(-q, q)
+    );
+    bezierVertex(
+      390.439 + random(-q, q), 182.973 + random(-q, q),
+      264.752 + random(-q, q), 226.114 + random(-q, q),
+      289.869 + random(-q, q), 373.671 + random(-q, q)
+    );
+    bezierVertex(
+      292.281 + random(-q, q), 387.84 + random(-q, q),
+      271.93 + random(-q, q), 437.821 + random(-q, q),
+      306.561 + random(-q, q), 418.423 + random(-q, q)
+    );
+    bezierVertex(
+      317.439 + random(-q, q), 412.33 + random(-q, q),
+      324.061 + random(-q, q), 407.319 + random(-q, q),
+      335.264 + random(-q, q), 384.368 + random(-q, q)
+    );
+    bezierVertex(
+      342.704 + random(-q, q), 369.126 + random(-q, q),
+      342.788 + random(-q, q), 367.185 + random(-q, q),
+      346.478 + random(-q, q), 362.086 + random(-q, q)
+    );
+    bezierVertex(
+      354.184 + random(-q, q), 351.436 + random(-q, q),
+      360.157 + random(-q, q), 340.782 + random(-q, q),
+      364.399 + random(-q, q), 332.493 + random(-q, q)
+    );
     endShape();
   }
   pop();
@@ -428,7 +399,6 @@ function drawScreamCharacter(expression) {
   endShape()
   pop();
 
-
   //Left Eye Pupil
   push();
   fill("#be1e2d")
@@ -491,44 +461,46 @@ function drawScreamCharacter(expression) {
 // Button class
 class Button {
   constructor(label, x, y, action) {
-    this.label = label;
-    this.x = x;
-    this.y = y;
-    this.w = 40;
-    this.h = 40;
-    this.action = action;
-    this.isActive = false
+    this.label = label; // Text shown on the button
+    this.x = x; // X Position on the canvas
+    this.y = y; // Y Position on the canvas
+    this.w = 40; // Button width
+    this.h = 40; // Button width
+    this.action = action; // A function that runs when the button is pressed
+    this.isActive = false // Tracks if the button is activated (by key press or button click).
   }
-  isHovered() {
+  isHovered() { // Returns true if the mouse is over the button area
     return mouseX > this.x && mouseX < this.x + this.w &&
       mouseY > this.y && mouseY < this.y + this.h;
   }
 
+
   show() {
-    if (this.isHovered()|| this.isActive) {  
-      fill(209, 99, 0); //Hover Color
+    if (this.isHovered() || this.isActive) {
+      fill(209, 99, 0); // Hover Color
     } else {
-      fill(248, 208, 19); //Default Color
+      fill(248, 208, 19); // Default Color
     }
     noStroke();
-    rect(this.x, this.y, this.w, this.h, 5);
+    rect(this.x, this.y, this.w, this.h, 5); // Draw button (rounded)
     textSize(17);
     fill(0);
-    text(this.label, this.x + this.w / 2, this.y + this.h / 2);
+    textAlign(CENTER, CENTER)
+    text(this.label, this.x + this.w / 2, this.y + this.h / 2); // Draw label
   }
 
-  clicked(mx, my) {
+  clicked(mx, my) { // Checks if the mouse click falls inside the button’s area
     return mx > this.x && mx < this.x + this.w && my > this.y && my < this.y + this.h;
   }
 }
 
-function drawButtons() {
+function drawButtons() { // Loop through the array of buttons and calls show() on each one
   for (let b of buttons) {
     b.show();
   }
 }
 
-function mousePressed() {
+function mousePressed() { // Button clicked
   for (let b of buttons) {
     if (b.clicked(mouseX, mouseY)) {
       b.action();
@@ -536,35 +508,35 @@ function mousePressed() {
   }
 }
 
-function keyPressed() {
+function keyPressed() {  // Key press trigger button click
   let pressedKey = key.toUpperCase();
   for (let b of buttons) {
     if (b.label === pressedKey) {
-      b.action();               // Trigger action
-      b.isActive = true;        // Simulate hover
+      b.action();               // Do the button’s action
+      b.isActive = true;        // Mark button as active
       keyPressStartTimes[pressedKey] = millis(); // Store press time
     }
   }
 }
 
-function keyReleased() {
+function keyReleased() {  // Key release dependant on duration of key held.
   let releasedKey = key.toUpperCase();
-  let releaseTime = millis();
-  
+  let releaseTime = millis();  // Save time key was pressed
+
   for (let b of buttons) {
     if (b.label === releasedKey) {
       let pressTime = keyPressStartTimes[releasedKey] || releaseTime;
       let duration = releaseTime - pressTime;
-      
+
 
       setTimeout(() => {
-        b.isActive = false;
+        b.isActive = false; // Mark button as inactive
       }, duration);
     }
   }
 }
 
-function windowResized() {
+function windowResized() { // Make elements adjust to window size
   resizeCanvas(windowWidth, windowHeight);
   createButtons(); // Recalculate button positions
 }
