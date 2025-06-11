@@ -1,4 +1,3 @@
-let rot = 0
 let buttons = [];
 let keyPressStartTimes = {}; // Store press time for each key
 let currentExpression = 'a';
@@ -6,7 +5,7 @@ let currentExpression = 'a';
 function createButtons() {
   buttons = [];
 
-  let y = 10;
+  let y = height - 55;
   let spacing = 22;
 
   //Define Buttons
@@ -19,21 +18,25 @@ function createButtons() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textAlign(CENTER, CENTER);
+  createButtons(); // Setup initial buttons based on window size
+}
+
+function draw() {
   background(220);
+
+  // Draw Background Elements
   drawWave();
   drawLayerBottom();
   drawSeaSunlight();
   drawBubbleland();
+  drawLandCircles();
   drawRightCircles();
-  createButtons(); // Setup initial buttons based on window size
-  // Draw Background Elements
-}
 
-function draw() {
-drawScreamCharacter(currentExpression);
-drawButtons();
-// Draw buttons
-drawLandCircles();
+  // Draw character
+  drawScreamCharacter(currentExpression);
+
+  // Draw buttons
+  drawButtons();
 }
 
 // Level 1
@@ -98,24 +101,21 @@ function drawBubbleland() {
   fill(39, 69, 59); circle(1775 * sX, 715 * sY, 50 * sX);
 }
 
-function drawLandCircles(){
-translate(mouseX, mouseY)
-// A circle changes color from hues of blue to orange as the mouse moves from left to right.
-//  let r = map(mouseX, 0, width, 0, 255);
-//  let b = map(mouseX, 255, width, 255, 0);
-  let r = map(mouseX, 0, width, 0, 255);
-  let g = map(mouseX, 0, width, 0, 255);
-  let b = map(mouseX, 0, width, 255, 0);
-//  fill(r, 50, b,50);
-fill(r, g , b, 50);
-noStroke();
+function drawLandCircles() {
+  noStroke();
+  let sX = windowWidth / 1811;
+  let sY = windowHeight / 1280;
+  let yOffset = 300;
 
-for (let i = 0; i < 5; i++) {
-    let size = map(i, 0, 5, 50, 10)
-    translate(size, 200)
-    rotate(frameCount)
-    circle(200, 200, size)
-}
+  fill(105, 133, 95); circle(1610.05 * sX, (769.67 + yOffset) * sY, 399.48 * 2 * sX);
+  fill(183, 169, 130); circle(1613.58 * sX, (782.01 + yOffset) * sY, 339.22 * 2 * sX);
+  fill(102, 125, 119); circle(1640.33 * sX, (799.11 + yOffset) * sY, 323.67 * 2 * sX);
+  fill(205, 185, 148); circle(1700.99 * sX, (858.13 + yOffset) * sY, 355.6 * 2 * sX);
+  fill(193, 165, 58); circle(1821.48 * sX, (864.71 + yOffset) * sY, 355.6 * 2 * sX);
+  fill(218, 179, 39); circle(1878.53 * sX, (849.43 + yOffset) * sY, 340.32 * 2 * sX);
+  fill(37, 56, 52); circle(1964 * sX, (790.71 + yOffset) * sY, 340.32 * 2 * sX);
+  fill(143, 109, 63); circle(1984.93 * sX, (793.4 + yOffset) * sY, 319.39 * 2 * sX);
+  fill(39, 69, 59); circle(2009.53 * sX, (763.96 + yOffset) * sY, 308.54 * 2 * sX);
 }
 
 function drawRightCircles() {
@@ -377,7 +377,6 @@ function drawScreamCharacter(expression) {
   push();
   fill(255); // #fff from SVG
   noStroke()
-  translate(-1)
   beginShape();
   vertex(328.75, 142.738);
   bezierVertex(329.671, 130.989, 325.435, 115.691, 312.937, 112.038);
@@ -463,6 +462,8 @@ function drawScreamCharacter(expression) {
   bezierVertex(346.38900000000007, 200.15200000000004, 348.06600000000003, 197.10100000000003, 344.744, 193.79300000000003);
   endShape();
   pop();
+
+  pop(); // End of character drawing
 }
 
 // Button class
