@@ -1,36 +1,35 @@
-let rot = 0
-let currentExpression = 'level 1';
 let buttons = [];
+let keyPressStartTimes = {}; // Store press time for each key
+let currentExpression = 'a';
+let rot = 0
 
 function createButtons() {
   buttons = [];
+  textAlign(CENTER, CENTER)
 
   let y = height - 55;
-  let spacing = 150;
+  let spacing = 30;
 
   //Define Buttons
-  buttons.push(new Button("Level 1", width / 2 - spacing, y, () => currentExpression = 'level 1'));
-  buttons.push(new Button("Level 2", width / 2 - spacing / 3, y, () => currentExpression = 'level 2'));
-  buttons.push(new Button("Level 3", width / 2 + spacing / 3, y, () => currentExpression = 'level 3'));
-  buttons.push(new Button("Level 4", width / 2 + spacing, y, () => currentExpression = 'level 4'));
+  buttons.push(new Button("A", width / 2 - spacing * 3, y, () => currentExpression = 'a'));
+  buttons.push(new Button("S", width / 2 - spacing, y, () => currentExpression = 's'));
+  buttons.push(new Button("D", width / 2 + spacing, y, () => currentExpression = 'd'));
+  buttons.push(new Button("F", width / 2 + spacing * 3, y, () => currentExpression = 'f'));
 }
 
 function setup() {
 createCanvas(windowWidth, windowHeight);
-angleMode(DEGREES);
-rectMode(CENTER);
-background(220);
+background(21, 28, 46);
 drawWave()
 drawLayerBottom();
 drawSeaSunlight();
 createButtons(); // Setup initial buttons based on window size
-textAlign(CENTER, CENTER);
 }
 
 function draw() {
-drawLandCircles()
 drawScreamCharacter(currentExpression);
 drawButtons();
+drawLandCircles()
 }
 
 
@@ -39,6 +38,7 @@ function drawWave() {
   let scaleY = windowHeight / 1280;
 
   fill(21, 28, 46);
+  stroke(220);
   beginShape();
   vertex(1351.35 * scaleX, 388.26 * scaleY);
   bezierVertex((1351.35 - 286.45) * scaleX, (388.26 + 127.97) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY);
@@ -102,7 +102,7 @@ noStroke();
 for (let i = 0; i < 5; i++) {
     let size = map(i, 0, 5, 50, 10)
     translate(size, 200)
-    rotate(frameCount)
+    rotate(radians(frameCount))
     circle(200, 200, size)
 }
 }
@@ -253,10 +253,11 @@ function drawScreamCharacter(expression) {
   pop();
 
   //Interactive Mouth 
+  push();
   fill(169, 146, 109)
   stroke(0)
   strokeWeight(6)
-  if (expression === 'level 1') {
+  if (expression === 'a') {
     //Mouth S
     fill(169, 146, 109)
     stroke(0)
@@ -269,7 +270,7 @@ function drawScreamCharacter(expression) {
     bezierVertex(351.509, 307.632, 352.774, 301.245, 354.706, 297.443);
     endShape();
   }
-  else if (expression === 'level 2') {
+  else if (expression === 's') {
     //Mouth M
     fill(169, 146, 109)
     stroke(0)
@@ -283,7 +284,7 @@ function drawScreamCharacter(expression) {
     bezierVertex(359.965, 323.277, 361.803, 314.181, 364.61199999999997, 308.766);
     endShape();
   }
-  else if (expression === 'level 3') {
+  else if (expression === 'd') {
     //Mouth L
     fill(169, 146, 109)
     stroke(0)
@@ -297,7 +298,7 @@ function drawScreamCharacter(expression) {
     bezierVertex(360.871, 337.94399999999996, 362.85900000000004, 326.55999999999995, 365.897, 319.784);
     endShape();
   }
-  else if (expression === 'level 4') {
+  else if (expression === 'f') {
     //Mouth XL
     fill(169, 146, 109)
     stroke(0)
@@ -312,6 +313,7 @@ function drawScreamCharacter(expression) {
     bezierVertex(354.184, 351.43600000000004, 360.157, 340.78200000000004, 364.399, 332.493);
     endShape();
   }
+  pop();
 
   //Right Eye
   push();
@@ -444,17 +446,19 @@ class Button {
     this.label = label;
     this.x = x;
     this.y = y;
-    this.w = 80;
-    this.h = 30;
+    this.w = 40;
+    this.h = 40;
     this.action = action;
+    this.isActive = false
   }
   isHovered() {
     return mouseX > this.x && mouseX < this.x + this.w &&
       mouseY > this.y && mouseY < this.y + this.h;
   }
 
-  show() {
-    if (this.isHovered()) {
+
+ show() {
+    if (this.isHovered()|| this.isActive) {  
       fill(209, 99, 0); //Hover Color
     } else {
       fill(248, 208, 19); //Default Color
@@ -463,13 +467,14 @@ class Button {
     rect(this.x, this.y, this.w, this.h, 5);
     textSize(17);
     fill(0);
+    textAlign(CENTER, CENTER)
     text(this.label, this.x + this.w / 2, this.y + this.h / 2);
   }
 
   clicked(mx, my) {
     return mx > this.x && mx < this.x + this.w && my > this.y && my < this.y + this.h;
   }
-}
+} 
 
 function drawButtons() {
   for (let b of buttons) {
@@ -481,6 +486,34 @@ function mousePressed() {
   for (let b of buttons) {
     if (b.clicked(mouseX, mouseY)) {
       b.action();
+    }
+  }
+}
+
+function keyPressed() {
+  let pressedKey = key.toUpperCase();
+  for (let b of buttons) {
+    if (b.label === pressedKey) {
+      b.action();               // Trigger action
+      b.isActive = true;        // Simulate hover
+      keyPressStartTimes[pressedKey] = millis(); // Store press time
+    }
+  }
+}
+
+function keyReleased() {
+  let releasedKey = key.toUpperCase();
+  let releaseTime = millis();
+  
+  for (let b of buttons) {
+    if (b.label === releasedKey) {
+      let pressTime = keyPressStartTimes[releasedKey] || releaseTime;
+      let duration = releaseTime - pressTime;
+      
+
+      setTimeout(() => {
+        b.isActive = false;
+      }, duration);
     }
   }
 }
