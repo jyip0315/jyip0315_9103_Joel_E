@@ -1,14 +1,13 @@
+let rot = 0
 let buttons = [];
 let keyPressStartTimes = {}; // Store press time for each key
 let currentExpression = 'a';
-let rot = 0
 
 function createButtons() {
   buttons = [];
-  textAlign(CENTER, CENTER)
 
-  let y = height - 55;
-  let spacing = 30;
+  let y = 10;
+  let spacing = 22;
 
   //Define Buttons
   buttons.push(new Button("A", width / 2 - spacing * 3, y, () => currentExpression = 'a'));
@@ -18,27 +17,32 @@ function createButtons() {
 }
 
 function setup() {
-createCanvas(windowWidth, windowHeight);
-background(21, 28, 46);
-drawWave()
-drawLayerBottom();
-drawSeaSunlight();
-createButtons(); // Setup initial buttons based on window size
+  createCanvas(windowWidth, windowHeight);
+  textAlign(CENTER, CENTER);
+  background(220);
+  drawWave();
+  drawLayerBottom();
+  drawSeaSunlight();
+  drawBubbleland();
+  drawRightCircles();
+  createButtons(); // Setup initial buttons based on window size
+  // Draw Background Elements
 }
 
 function draw() {
 drawScreamCharacter(currentExpression);
 drawButtons();
-drawLandCircles()
+// Draw buttons
+drawLandCircles();
 }
 
-
+// Level 1
 function drawWave() {
+  noStroke();
   let scaleX = windowWidth / 1811;
   let scaleY = windowHeight / 1280;
 
   fill(21, 28, 46);
-  stroke(220);
   beginShape();
   vertex(1351.35 * scaleX, 388.26 * scaleY);
   bezierVertex((1351.35 - 286.45) * scaleX, (388.26 + 127.97) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY, (1351.35 - 501.68) * scaleX, (388.26 + 54.74) * scaleY);
@@ -51,40 +55,48 @@ function drawWave() {
 }
 
 function drawLayerBottom() {
-  stroke(220, 50);
+  noStroke();
   let sX = windowWidth / 1811;
   let sY = windowHeight / 1280;
 
-  noFill(); ellipse(556.43 * sX, 518.48 * sY, 363.26 * 2 * sX, 110.27 * 2 * sY);
-  noFill(); ellipse(601.58 * sX, 533.79 * sY, 408.41 * 2 * sX, 113.2 * 2 * sY);
-  noFill(); ellipse(625.51 * sX, 552.45 * sY, 398.67 * 2 * sX, 100.98 * 2 * sY);
-  noFill(); ellipse(1523.89 * sX, 503.61 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
-  noFill(); ellipse(1446.04 * sX, 529.41 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
-  noFill(); ellipse(1348.32 * sX, 566.53 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
-  noFill(); ellipse(1241.81 * sX, 602.29 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
-  noFill(); ellipse(1230.88 * sX, 664.21 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
+  fill(119, 165, 199); ellipse(556.43 * sX, 518.48 * sY, 363.26 * 2 * sX, 110.27 * 2 * sY);
+  fill(100, 142, 184); ellipse(601.58 * sX, 533.79 * sY, 408.41 * 2 * sX, 113.2 * 2 * sY);
+  fill(54, 101, 129); ellipse(625.51 * sX, 552.45 * sY, 398.67 * 2 * sX, 100.98 * 2 * sY);
+  fill(23, 50, 79); ellipse(1523.89 * sX, 503.61 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  fill(125, 155, 181); ellipse(1446.04 * sX, 529.41 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  fill(89, 138, 170); ellipse(1348.32 * sX, 566.53 * sY, 241.43 * 2 * sX, 145.46 * 2 * sY);
+  fill(13, 52, 109); ellipse(1241.81 * sX, 602.29 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
+  fill(61, 103, 125); ellipse(1230.88 * sX, 664.21 * sY, 385.94 * 2 * sX, 145.46 * 2 * sY);
 }
 
 function drawSeaSunlight() {
-  stroke(220, 50);
+  noStroke();
   let sX = windowWidth / 1811;
   let sY = windowHeight / 1280;
 
-  noFill(); ellipse(1228.69 * sX, 1062.82 * sY, 578.67 * 2 * sX, 210.8 * 2 * sY);
-  noFill(); ellipse(1185.14 * sX, 944.66 * sY, 624.77 * 2 * sX, 228.39 * 2 * sY);
-  noFill(); ellipse(1144.41 * sX, 867.08 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
-  noFill(); ellipse(1080.95 * sX, 776.19 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
-  noFill(); ellipse(1054.57 * sX, 716.27 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
-  noFill(); ellipse(1024.18 * sX, 682.21 * sY, 657.53 * 2 * sX, 205.94 * 2 * sY);
-  noFill(); ellipse(1018.69 * sX, 647.26 * sY, 693.42 * 2 * sX, 153.96 * 2 * sY);
-  noFill(); ellipse(829.66 * sX, 618.21 * sY, 515.51 * 2 * sX, 129.55 * 2 * sY);
-  noFill(); ellipse(751.17 * sX, 609.82 * sY, 470.9 * 2 * sX, 111.52 * 2 * sY);
-  noFill(); ellipse(724.94 * sX, 587.76 * sY, 415.84 * 2 * sX, 85.94 * 2 * sY);
-  noFill(); ellipse(725.62 * sX, 568.34 * sY, 366.39 * 2 * sX, 49.86 * 2 * sY);
-  noFill(); ellipse(722.04 * sX, 548.85 * sY, 279.39 * 2 * sX, 21.48 * 2 * sY);
-  noFill(); ellipse(734.9 * sX, 538.38 * sY, 214.65 * 2 * sX, 3.27 * 2 * sY);
+  fill(25, 54, 70); ellipse(1228.69 * sX, 1062.82 * sY, 578.67 * 2 * sX, 210.8 * 2 * sY);
+  fill(15, 22, 40); ellipse(1185.14 * sX, 944.66 * sY, 624.77 * 2 * sX, 228.39 * 2 * sY);
+  fill(26, 73, 101); ellipse(1144.41 * sX, 867.08 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  fill(33, 43, 55); ellipse(1080.95 * sX, 776.19 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  fill(61, 103, 125); ellipse(1054.57 * sX, 716.27 * sY, 657.53 * 2 * sX, 228.39 * 2 * sY);
+  fill(21, 28, 46); ellipse(1024.18 * sX, 682.21 * sY, 657.53 * 2 * sX, 205.94 * 2 * sY);
+  fill(25, 54, 70); ellipse(1018.69 * sX, 647.26 * sY, 693.42 * 2 * sX, 153.96 * 2 * sY);
+  fill(89, 138, 170); ellipse(829.66 * sX, 618.21 * sY, 515.51 * 2 * sX, 129.55 * 2 * sY);
+  fill(26, 35, 50); ellipse(751.17 * sX, 609.82 * sY, 470.9 * 2 * sX, 111.52 * 2 * sY);
+  fill(225, 190, 28); ellipse(724.94 * sX, 587.76 * sY, 415.84 * 2 * sX, 85.94 * 2 * sY);
+  fill(195, 83, 20); ellipse(725.62 * sX, 568.34 * sY, 366.39 * 2 * sX, 49.86 * 2 * sY);
+  fill(248, 200, 16); ellipse(722.04 * sX, 548.85 * sY, 279.39 * 2 * sX, 21.48 * 2 * sY);
+  fill(236, 224, 166); ellipse(734.9 * sX, 538.38 * sY, 214.65 * 2 * sX, 3.27 * 2 * sY);
 }
 
+function drawBubbleland() {
+  noStroke();
+  let sX = windowWidth / 1811;
+  let sY = windowHeight / 1280;
+
+  fill(148, 129, 53); circle(1775 * sX, 721 * sY, 90 * sX);
+  fill(39, 69, 59); circle(1775 * sX, 715 * sY, 50 * sX);
+}
 
 function drawLandCircles(){
 translate(mouseX, mouseY)
@@ -97,14 +109,28 @@ translate(mouseX, mouseY)
 //  fill(r, 50, b,50);
 fill(r, g , b, 50);
 noStroke();
-  
 
 for (let i = 0; i < 5; i++) {
     let size = map(i, 0, 5, 50, 10)
     translate(size, 200)
-    rotate(radians(frameCount))
+    rotate(frameCount)
     circle(200, 200, size)
 }
+}
+
+function drawRightCircles() {
+  noStroke();
+  let sX = windowWidth / 1811;
+  let sY = windowHeight / 1280;
+
+  fill(74, 100, 113); circle(1605.94 * sX, 510.69 * sY, 192.9 * 2 * sX);
+  fill(34, 53, 109); circle(1551.19 * sX, 510.52 * sY, 168.45 * 2 * sX);
+  fill(98, 125, 116); circle(1529.84 * sX, 518.35 * sY, 151.66 * 2 * sX);
+  fill(40, 61, 116); circle(1504.31 * sX, 529.92 * sY, 154.27 * 2 * sX);
+  fill(106, 134, 156); circle(1491 * sX, 536.01 * sY, 140.96 * 2 * sX);
+  fill(175, 150, 119); circle(1450.5 * sX, 542.76 * sY, 94.6 * 2 * sX);
+  fill(175, 115, 115); circle(1425.62 * sX, 555.33 * sY, 82.03 * 2 * sX);
+  fill(86, 91, 111); circle(1399.86 * sX, 568.86 * sY, 74.85 * 2 * sX);
 }
 
 function drawScreamCharacter(expression) {
@@ -351,6 +377,7 @@ function drawScreamCharacter(expression) {
   push();
   fill(255); // #fff from SVG
   noStroke()
+  translate(-1)
   beginShape();
   vertex(328.75, 142.738);
   bezierVertex(329.671, 130.989, 325.435, 115.691, 312.937, 112.038);
@@ -436,8 +463,6 @@ function drawScreamCharacter(expression) {
   bezierVertex(346.38900000000007, 200.15200000000004, 348.06600000000003, 197.10100000000003, 344.744, 193.79300000000003);
   endShape();
   pop();
-
-  pop(); // End of character drawing
 }
 
 // Button class
@@ -456,8 +481,7 @@ class Button {
       mouseY > this.y && mouseY < this.y + this.h;
   }
 
-
- show() {
+  show() {
     if (this.isHovered()|| this.isActive) {  
       fill(209, 99, 0); //Hover Color
     } else {
@@ -467,14 +491,13 @@ class Button {
     rect(this.x, this.y, this.w, this.h, 5);
     textSize(17);
     fill(0);
-    textAlign(CENTER, CENTER)
     text(this.label, this.x + this.w / 2, this.y + this.h / 2);
   }
 
   clicked(mx, my) {
     return mx > this.x && mx < this.x + this.w && my > this.y && my < this.y + this.h;
   }
-} 
+}
 
 function drawButtons() {
   for (let b of buttons) {
