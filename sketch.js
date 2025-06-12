@@ -1,23 +1,28 @@
-// Declare variables
+// Declare variables **********************
 let buttons = [];
 let keyPressStartTimes = {}; // Store press time for each key
 let currentExpression = 'a'; // Default character expression
 
-function setup() { // elements behind the rotating circles need to be put here.
-  createCanvas(windowWidth, windowHeight);
+
+// Elements behind the rotating circles need to be put here.
+// Otherwise it would be affected by or cover the rotating circles.
+function setup() { 
+  createCanvas(windowWidth, windowHeight); // Canvas fit to window size
   background(21, 28, 46);  // Navy blue background
-  drawWave()  // wave element
-  drawLayerBottom(); //circles on the wave element
-  drawSeaSunlight(); //circle on the wave element
+  drawWave()  // Wave element
+  drawLayerBottom(); //Circles on the wave element
+  drawSeaSunlight(); //Circle on the wave element
   createButtons(); // Setup initial buttons based on window size
 }
 
+// Draw front elements **********************
 function draw() {
   drawScreamCharacter(currentExpression);
   drawButtons(); 
   drawLandCircles() // rotating circles at the bottom as the rotation affects the other elements.
 }
 
+// Buttons **********************
 function createButtons() {
   buttons = [];
   textAlign(CENTER, CENTER)
@@ -32,6 +37,7 @@ function createButtons() {
   buttons.push(new Button("F", width / 2 + spacing * 3, y, () => currentExpression = 'f'));
 }
 
+// Draw Background Wave Elements **********************
 function drawWave() {
   let scaleX = windowWidth / 1811;
   let scaleY = windowHeight / 1280;
@@ -85,25 +91,31 @@ function drawSeaSunlight() {
 }
 
 
+// Draw Rotating Circles **********************
+// Reference rotate and map example in Week 10
+
 function drawLandCircles() {
-  translate(mouseX, mouseY)
+  translate(mouseX, mouseY) // All circles drawn relative to the mouse.
   // A circle changes color from hues of blue to yellow as the mouse moves from left to right.
-  let r = map(mouseX, 0, width, 0, 255); // Red increases as mouse moves right
+  let r = map(mouseX, 0, width, 0, 255); // Map functions create color shift, red increases as mouse moves right
   let g = map(mouseX, 0, width, 0, 255); // Green increases the same way
   let b = map(mouseX, 0, width, 255, 0); // Blue decreases as mouse moves right
 
-  fill(r, g, b, 50);
+  fill(r, g, b, 50); // circle fill colors and set to 50% transparency
   noStroke();
 
 
-  for (let i = 0; i < 5; i++) {
-    let size = map(i, 0, 5, 50, 10) // size of the rotating circles
+  for (let i = 0; i < 5; i++) { // Beginning of for loop
+    let size = map(i, 0, 5, 50, 10)  // Draw 5 circles in different sizes from 50(big) to 10(small).
     translate(size, 200) // size of spiral
     rotate(radians(frameCount)) 
-    circle(200, 200, size)
+    // Rotate transformation to make the circles spin around a point. 
+    // Framecount set to radians so it does not affect the character composition.
+    circle(200, 200, size) // Draws circles
   }
 }
 
+// Draw The Scream Character **********************
 function drawScreamCharacter(expression) { // Start of character drawing
   push();
   translate(width / 3, height / 3); //shrink character to fit screen
@@ -458,7 +470,7 @@ function drawScreamCharacter(expression) { // Start of character drawing
   pop(); // End of character drawing
 }
 
-// Button class
+// Button class **********************
 class Button {
   constructor(label, x, y, action) {
     this.label = label; // Text shown on the button
@@ -508,6 +520,7 @@ function mousePressed() { // Button clicked
   }
 }
 
+// Key Press **********************
 function keyPressed() {  // Key press trigger button click
   let pressedKey = key.toUpperCase();
   for (let b of buttons) {
@@ -536,6 +549,7 @@ function keyReleased() {  // Key release dependant on duration of key held.
   }
 }
 
+// Resize Canvas **********************
 function windowResized() { // Make elements adjust to window size
   resizeCanvas(windowWidth, windowHeight);
   createButtons(); // Recalculate button positions
