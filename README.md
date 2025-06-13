@@ -15,13 +15,13 @@ This offers two options of input.
 
 My individual approach to the group artwork focuses on user interaction through both mouse and keyboard input to make the experience more engaging. To reflect the chaotic background of The Scream, I drew visual inspiration from the artwork plant growing_test by cloud.cb found in the OpenProcessing platform, which uses a brush-like effect I admired. However, I adapted only the visual style, leaving out its lack of interactivity. Unlike my group members, I removed special effects from their elements to keep my version simpler and more focused.
 
-![An image of plant growing_test by cloud.cb](assets/plant growing_test.png)
+![An image of plant growing_test by cloud.cb](<../assets/plant growing_test.png>)
 
 plant growing_test by cloud.cb
 
 I also changed the button labels "Levels 1–4" to keyboard keys “A”, “S”, “D”, and “F”. I originally planned to add a singing voice to each key to mimic a piano input, but decided against it to avoid overlapping with a teammate’s audio-based work. Instead, I animated the largest mouth to quiver, referencing the TikTok Pitch Perfect challenge to suggest a high-pitched scream. These changes in interaction and design distinguish my submission from the rest of the group.
 
-![An image of pitch perfect challenge](assets/Pitch Perfect Challenge.png) 
+![An image of pitch perfect challenge](<../assets/Pitch Perfect Challenge.png>)
 
 YouTube short video link: https://www.youtube.com/shorts/84tQiELfF9Y  
 
