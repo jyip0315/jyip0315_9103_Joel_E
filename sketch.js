@@ -25,7 +25,6 @@ function draw() {
 // Buttons **********************
 function createButtons() {
   buttons = [];
-  textAlign(CENTER, CENTER)
 
   let y = height - 55; // Button position
   let spacing = 30; // Button spacing
@@ -92,7 +91,8 @@ function drawSeaSunlight() {
 
 
 // Draw Rotating Circles **********************
-// Reference rotate and map example in Week 10
+// Reference rotate and map example in Week 10 https://canvas.sydney.edu.au/courses/64347/pages/week-10-lecture?module_item_id=2585760 
+// Reference colour changing map technique https://p5js.org/reference/#/p5/map 
 
 function drawLandCircles() {
   translate(mouseX, mouseY) // All circles drawn relative to the mouse.
